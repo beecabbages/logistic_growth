@@ -1,5 +1,6 @@
-#Script to plot data and model
+#creating a graph comparing the exponential and logistic growth curves 
 
+#copying in the script for the logistic curve
 growth_data <- read.csv("/cloud/project/experiment3.csv")#inserting file name to read
 
 install.packages("ggplot2")
@@ -11,6 +12,11 @@ logistic_fun <- function(t) {
   
   return(N)
   
+}
+
+#function for the exponential growth curve 
+exponential_fun <- function(t) {
+  N <- N0*exp(r*t)
 }
 
 #setting the initial population size:
@@ -26,15 +32,13 @@ K <- 4.998e+09 #intercept from model 2
 ggplot(aes(x = t ,y = N), data = growth_data) +
   
   geom_function(fun=logistic_fun, colour="red") +
-
+  geom_function(fun = exponential_fun, colour "blue") +
+  #adding in the exponential function
+  
   geom_point()
+#scale_y_continuous(trans='log10')
 
 
-  #scale_y_continuous(trans='log10')
-
-sink(file = "package-versions.txt")
-sessionInfo()
-sink()
-#this is to create a record of the packages and the version used 
+  
 
 
